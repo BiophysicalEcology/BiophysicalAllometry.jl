@@ -44,10 +44,12 @@ struct DynamicSimilarity <: AbstractScalingSimilarity end
 
 # ── Reference normalisation values (1 kg mammal) ──────────────────────────────
 # Calibrated to typical mammal limb proportions at 1 kg body mass.
+# At 1 kg (e.g. large squirrel / small rabbit): d ≈ 1.3 cm, L ≈ 17 cm.
+# These give a 20 kg dog: d ≈ 4 cm, L ≈ 36 cm — anatomically consistent.
 const _REF_MASS       = 1.0u"kg"
-const _REF_DIAMETER   = 0.04u"m"   # typical limb diameter at 1 kg
-const _REF_LENGTH     = 0.25u"m"   # typical limb length at 1 kg
-const _REF_LEN_LENGTH = 0.25u"m"   # same baseline for length-based prediction
+const _REF_DIAMETER   = 0.013u"m"  # limb diameter at 1 kg body mass
+const _REF_LENGTH     = 0.17u"m"   # limb length at 1 kg body mass
+const _REF_LEN_LENGTH = 0.17u"m"   # same baseline for length-based prediction
 
 # ── limb_diameter ─────────────────────────────────────────────────────────────
 
@@ -101,8 +103,8 @@ Reference: McMahon, T. A. (1973). Size and shape in biology. *Science* 179:1201�
 
 # Example
 ```julia
-limb_length(ElasticSimilarity(),   20.0u"kg")  # → ~0.473 m
-limb_length(GeometricSimilarity(), 20.0u"kg")  # → ~0.679 m
+limb_length(ElasticSimilarity(),   20.0u"kg")  # → ~0.36 m
+limb_length(GeometricSimilarity(), 20.0u"kg")  # → ~0.46 m
 ```
 """
 function limb_length(::ElasticSimilarity, mass::Unitful.Mass)

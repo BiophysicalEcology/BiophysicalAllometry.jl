@@ -78,7 +78,7 @@ println("  $(rpad("Mass", 10))  $(rpad("Stride freq.", 14))  Cost of transport")
 println("  " * "─"^50)
 
 for (name, mass) in animals
-    sf  = allometric(StrideFrequency, EutherianMammal(), mass)
+    sf  = allometric(StrideFrequency(), EutherianMammal(), mass)
     cot = allometric(CostOfTransport(), EutherianMammal(), mass)
     println("  $(rpad(string(mass), 10))  $(rpad(string(round(u"Hz", sf; digits=3)), 14))  $(round(u"J/kg/m", cot; digits=2))")
 end

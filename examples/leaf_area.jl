@@ -48,8 +48,8 @@ println("Broadleaf area vs length (W/L = 0.5 fixed, BroadleafPlant):")
 println()
 
 for l_mm in [20, 40, 60, 80, 100, 150, 200]
-    l = l_mm * u"mm"
-    w = 0.5 * l
+    local l = l_mm * u"mm"
+    local w = 0.5 * l
     area = allometric(LeafArea(), BroadleafPlant(), l, w)
     mass = allometric(LeafDryMass(), BroadleafPlant(), l, w)
     println("  L = $(lpad(l_mm, 4)) mm  →  A = $(rpad(round(u"cm^2", area; digits=2), 12))  dry mass = $(round(u"mg", mass; digits=1))")

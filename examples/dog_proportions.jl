@@ -48,22 +48,37 @@ m_body = m_total - m_head - m_four_legs
 
 # ── Report ────────────────────────────────────────────────────────────────────
 
+r_b     = round(b_leg;             digits=2)
+r_d     = round(u"cm", d_leg;      digits=1)
+r_l     = round(u"cm", l_leg;      digits=1)
+r_mleg  = round(u"kg", m_one_leg;  digits=3)
+r_mlegs = round(u"kg", m_four_legs;digits=3)
+r_brain = round(u"g",  m_brain;    digits=1)
+r_mhead = round(u"kg", m_head;     digits=3)
+r_mbody = round(u"kg", m_body;     digits=3)
+
 println("Dog allometric proportions ($(typeof(sim)), M_total = $m_total)")
 println()
-println("  Limb aspect ratio  b_leg  = $(round(b_leg; digits=2))")
-println("  Limb diameter      d_leg  = $(round(u"cm", d_leg; digits=1))")
-println("  Limb length        l_leg  = $(round(u"cm", l_leg; digits=1))")
-println("  Mass per leg              = $(round(u"kg", m_one_leg; digits=3))")
-println("  Total leg mass            = $(round(u"kg", m_four_legs; digits=3))")
+println("  Limb aspect ratio  b_leg  = $r_b")
+println("  Limb diameter      d_leg  = $r_d")
+println("  Limb length        l_leg  = $r_l")
+println("  Mass per leg              = $r_mleg")
+println("  Total leg mass            = $r_mlegs")
 println()
-println("  Brain mass                = $(round(u"g", m_brain; digits=1))")
-println("  Estimated head mass       = $(round(u"kg", m_head; digits=3))")
+println("  Brain mass                = $r_brain")
+println("  Estimated head mass       = $r_mhead")
 println()
-println("  Body (torso) mass         = $(round(u"kg", m_body; digits=3))")
+println("  Body (torso) mass         = $r_mbody")
 println()
 
 # ── Step 4: Show how to feed into BiophysicalGeometry ─────────────────────────
 # (requires BiophysicalGeometry to be installed)
+
+s_half  = round(u"kg", m_body/2;  digits=3)
+s_leg   = round(u"kg", m_one_leg; digits=3)
+s_b     = round(b_leg;            digits=1)
+s_head  = round(u"kg", m_head;    digits=3)
+s_rdisc = round(u"cm", r_leg;     digits=2)
 
 println("To build the CompositeBody in BiophysicalGeometry:")
 println()
@@ -72,13 +87,13 @@ println("  dorsal_fur  = Fur(15.0u\"mm\", 30.0u\"μm\", 3000u\"cm^-2\")")
 println("  ventral_fur = Fur( 5.0u\"mm\", 30.0u\"μm\", 3000u\"cm^-2\")")
 println("  limb_fur    = Fur( 8.0u\"mm\", 30.0u\"μm\", 3000u\"cm^-2\")")
 println()
-println("  dorsal  = Body(HalfCylinder($(round(u\"kg\", m_body/2; digits=3)), density, 3.0), dorsal_fur)")
-println("  ventral = Body(HalfCylinder($(round(u\"kg\", m_body/2; digits=3)), density, 3.0), ventral_fur)")
-println("  leg     = Body(Cylinder($(round(u\"kg\", m_one_leg; digits=3)), density, $(round(b_leg; digits=1))), limb_fur)")
-println("  head    = Body(Ellipsoid($(round(u\"kg\", m_head; digits=3)), density, 1.5, 1.0), limb_fur)")
+println("  dorsal  = Body(HalfCylinder($s_half, density, 3.0), dorsal_fur)")
+println("  ventral = Body(HalfCylinder($s_half, density, 3.0), ventral_fur)")
+println("  leg     = Body(Cylinder($s_leg, density, $s_b), limb_fur)")
+println("  head    = Body(Ellipsoid($s_head, density, 1.5, 1.0), limb_fur)")
 println()
 println("  # Disc radius at leg–torso joints (from allometry):")
-println("  r_disc = $(round(u\"cm\", r_leg; digits=2))")
+println("  r_disc = $s_rdisc")
 
 # ── Comparison: elastic vs geometric similarity ───────────────────────────────
 
@@ -93,10 +108,16 @@ end
 
 # ── Other allometries for context ─────────────────────────────────────────────
 
+bmr_str  = round(u"W",         allometric(BasalMetabolicRate(), taxon, m_total); digits=2)
+skin_str = round(u"m^2",      Unitful.uconvert(u"m^2", allometric(SkinArea(), taxon, m_total)); digits=4)
+skel_str = round(u"kg",       allometric(SkeletonMass(), taxon, m_total); digits=3)
+hr_str   = round(u"minute^-1",allometric(HeartRate(),   taxon, m_total); digits=1)
+ls_str   = round(u"yr",       allometric(Lifespan(),    taxon, m_total); digits=1)
+
 println()
 println("─── Other allometries for $m_total $(nameof(typeof(taxon))) ───")
-println("  BMR            = $(round(u\"W\",       allometric(BasalMetabolicRate(), taxon, m_total); digits=2))")
-println("  Skin area      = $(round(u\"m^2\",     Unitful.uconvert(u\"m^2\", allometric(SkinArea(), taxon, m_total)); digits=4))")
-println("  Skeleton mass  = $(round(u\"kg\",      allometric(SkeletonMass(),      taxon, m_total); digits=3))")
-println("  Heart rate     = $(round(u\"minute^-1\", allometric(HeartRate(),       taxon, m_total); digits=1))")
-println("  Lifespan       = $(round(u\"yr\",       allometric(Lifespan(),         taxon, m_total); digits=1))")
+println("  BMR            = $bmr_str")
+println("  Skin area      = $skin_str")
+println("  Skeleton mass  = $skel_str")
+println("  Heart rate     = $hr_str")
+println("  Lifespan       = $ls_str")

@@ -44,8 +44,8 @@ end
 
 @testset "reference mass normalisation" begin
     # At exactly 1 kg the predicted values equal the reference values
-    @test limb_diameter(ElasticSimilarity(),   1.0u"kg") ≈ 0.04u"m"
-    @test limb_diameter(GeometricSimilarity(), 1.0u"kg") ≈ 0.04u"m"
-    @test limb_length(ElasticSimilarity(),     1.0u"kg") ≈ 0.25u"m"
-    @test limb_length(GeometricSimilarity(),   1.0u"kg") ≈ 0.25u"m"
+    @test limb_diameter(ElasticSimilarity(),   1.0u"kg") ≈ 0.013u"m"
+    @test limb_diameter(GeometricSimilarity(), 1.0u"kg") ≈ 0.013u"m"
+    @test limb_length(ElasticSimilarity(),     1.0u"kg") ≈ 0.17u"m"
+    @test limb_length(GeometricSimilarity(),   1.0u"kg") ≈ 0.17u"m"
 end
