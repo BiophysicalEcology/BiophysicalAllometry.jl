@@ -1,0 +1,29 @@
+name = "BiophysicalAllometry"
+uuid = "726553fe-cdfb-47ef-9d36-6d238d32ce3c"
+authors = ["Michael Kearney <m.kearney@unimelb.edu.au>"]
+version = "0.1.0"
+
+[deps]
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+
+[weakdeps]
+Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
+
+[extensions]
+BiophysicalAllometryMakieExt = "Makie"
+
+[compat]
+Unitful      = "1"
+Makie        = "0.24"
+Aqua         = "0.8"
+SafeTestsets = "0.1"
+Test         = "1"
+julia        = "1"
+
+[extras]
+Aqua         = "4c88cf16-eb10-579e-8560-4a9242c79595"
+SafeTestsets = "1bc83da4-3b8d-516f-aca4-4fe02f6d838f"
+Test         = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Aqua", "SafeTestsets", "Test"]
