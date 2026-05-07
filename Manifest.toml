@@ -8,16 +8,16 @@ project_hash = "54bced1b3f30ba07200af17b5e4c12c67740574c"
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
 version = "1.11.0"
 
-[[deps.BiophysicalAllometry]]
+[[deps.BiologicalScaling]]
 deps = ["Unitful"]
 path = "."
 uuid = "726553fe-cdfb-47ef-9d36-6d238d32ce3c"
 version = "0.1.0"
 
-    [deps.BiophysicalAllometry.extensions]
-    BiophysicalAllometryMakieExt = "Makie"
+    [deps.BiologicalScaling.extensions]
+    BiologicalScalingMakieExt = "Makie"
 
-    [deps.BiophysicalAllometry.weakdeps]
+    [deps.BiologicalScaling.weakdeps]
     Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
 
 [[deps.CompilerSupportLibraries_jll]]

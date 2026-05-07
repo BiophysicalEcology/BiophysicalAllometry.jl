@@ -3,10 +3,10 @@
 # Demonstrates the Montgomery leaf area model and leaf dry mass allometry
 # across different plant groups.
 #
-# Run from the BiophysicalAllometry.jl root:
+# Run from the BiologicalScaling.jl root:
 #   julia --project examples/leaf_area.jl
 
-using BiophysicalAllometry
+using BiologicalScaling
 using Unitful
 
 # ── Montgomery parameter by plant group ───────────────────────────────────────

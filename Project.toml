@@ -1,4 +1,4 @@
-name = "BiophysicalAllometry"
+name = "BiologicalScaling"
 uuid = "726553fe-cdfb-47ef-9d36-6d238d32ce3c"
 authors = ["Michael Kearney <m.kearney@unimelb.edu.au>"]
 version = "0.1.0"
@@ -10,7 +10,7 @@ Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
 
 [extensions]
-BiophysicalAllometryMakieExt = "Makie"
+BiologicalScalingMakieExt = "Makie"
 
 [compat]
 Unitful      = "1"

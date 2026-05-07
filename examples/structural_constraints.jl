@@ -3,10 +3,10 @@
 # Demonstrates elastic vs geometric similarity for limb proportions,
 # and how these feed into body-part geometry for biophysical modelling.
 #
-# Run from the BiophysicalAllometry.jl root:
+# Run from the BiologicalScaling.jl root:
 #   julia --project examples/structural_constraints.jl
 
-using BiophysicalAllometry
+using BiologicalScaling
 using Unitful
 
 println("Limb proportions under elastic vs geometric similarity (McMahon 1973)")

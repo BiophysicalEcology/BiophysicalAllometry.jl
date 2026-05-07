@@ -1,4 +1,4 @@
-using BiophysicalAllometry, Unitful, Test
+using BiologicalScaling, Unitful, Test
 
 @testset "MontgomeryLaw callable" begin
     ml = MontgomeryLaw(0.65; reference="test")

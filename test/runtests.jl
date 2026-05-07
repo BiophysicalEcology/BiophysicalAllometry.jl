@@ -1,14 +1,14 @@
-using BiophysicalAllometry
+using BiologicalScaling
 using Aqua
 using SafeTestsets
 using Test
 
 @testset "Quality assurance" begin
-    Aqua.test_unbound_args(BiophysicalAllometry)
-    Aqua.test_stale_deps(BiophysicalAllometry)
-    Aqua.test_undefined_exports(BiophysicalAllometry)
-    Aqua.test_project_extras(BiophysicalAllometry)
-    Aqua.test_deps_compat(BiophysicalAllometry)
+    Aqua.test_unbound_args(BiologicalScaling)
+    Aqua.test_stale_deps(BiologicalScaling)
+    Aqua.test_undefined_exports(BiologicalScaling)
+    Aqua.test_project_extras(BiologicalScaling)
+    Aqua.test_deps_compat(BiologicalScaling)
 end
 
 @safetestset "power_law"              begin include("power_law.jl") end

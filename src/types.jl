@@ -32,11 +32,15 @@ struct NonPasserineBird <: AbstractBird end
 
 # Reptiles
 "Squamate reptiles (lizards and snakes)."
-struct Squamate <: AbstractReptile end
+struct Squamate    <: AbstractReptile end
+"Desert iguana (*Dipsosaurus dorsalis*). Reference species for ectotherm silhouette allometries."
+struct DesertIguana <: AbstractReptile end
 
 # Amphibians
 "Frogs and toads."
-struct Anuran <: AbstractAmphibian end
+struct Anuran      <: AbstractAmphibian end
+"Leopard frog (*Rana pipiens*). Reference species for amphibian silhouette allometries."
+struct LeopardFrog <: AbstractAmphibian end
 
 # Plants
 "C3 photosynthesis plants."
@@ -57,22 +61,22 @@ struct Lauraceae      <: AbstractLeafPlant end
 "Oleaceae family."
 struct Oleaceae       <: AbstractLeafPlant end
 
-# ── Allometric variable hierarchy ─────────────────────────────────────────────
+# ── Scaling variable hierarchy ────────────────────────────────────────────────
 # Zero-field singleton structs. The type IS the biological quantity.
 
 """
-    AbstractAllometricVariable
+    AbstractScalingVariable
 
 Root abstract type for biological quantities predictable via allometry.
 """
-abstract type AbstractAllometricVariable end
+abstract type AbstractScalingVariable end
 
-abstract type AbstractMetabolicRate      <: AbstractAllometricVariable end
-abstract type AbstractMorphology         <: AbstractAllometricVariable end
-abstract type AbstractLocomotion         <: AbstractAllometricVariable end
-abstract type AbstractCardioRespiratory  <: AbstractAllometricVariable end
-abstract type AbstractLifeHistory        <: AbstractAllometricVariable end
-abstract type AbstractLeafMorphology     <: AbstractAllometricVariable end
+abstract type AbstractMetabolicRate      <: AbstractScalingVariable end
+abstract type AbstractMorphology         <: AbstractScalingVariable end
+abstract type AbstractLocomotion         <: AbstractScalingVariable end
+abstract type AbstractCardioRespiratory  <: AbstractScalingVariable end
+abstract type AbstractLifeHistory        <: AbstractScalingVariable end
+abstract type AbstractLeafMorphology     <: AbstractScalingVariable end
 
 # Metabolic rate
 "Basal (resting, fasted, thermoneutral) metabolic rate."
@@ -93,6 +97,16 @@ struct PlumageArea  <: AbstractMorphology end
 struct SkeletonMass <: AbstractMorphology end
 "Brain mass."
 struct BrainMass    <: AbstractMorphology end
+
+abstract type AbstractSilhouetteOrientation end
+"Body oriented perpendicular to the solar beam (maximum projected area)."
+struct NormalToSun   <: AbstractSilhouetteOrientation end
+"Body oriented parallel to the solar beam (minimum projected area)."
+struct ParallelToSun <: AbstractSilhouetteOrientation end
+
+"Projected body area onto a plane perpendicular to the direction of radiation.
+Parameterised by orientation relative to the solar beam: `NormalToSun()` or `ParallelToSun()`."
+struct SilhouetteArea{O <: AbstractSilhouetteOrientation} <: AbstractMorphology end
 
 # Locomotion
 "Stride frequency at trot–gallop transition."
@@ -123,7 +137,7 @@ struct LeafDryMass <: AbstractLeafMorphology end
 # ── trait_name: traits.build standardised names ───────────────────────────────
 
 """
-    trait_name(variable::AbstractAllometricVariable) → String
+    trait_name(variable::AbstractScalingVariable) → String
 
 Return the standardised trait name for use with traits.build databases.
 """
@@ -144,3 +158,5 @@ trait_name(::Lifespan)           = "lifespan_max"
 trait_name(::GenerationTime)     = "generation_time"
 trait_name(::LeafArea)           = "leaf_area"
 trait_name(::LeafDryMass)        = "leaf_dry_mass"
+trait_name(::SilhouetteArea{NormalToSun})   = "silhouette_area_normal"
+trait_name(::SilhouetteArea{ParallelToSun}) = "silhouette_area_parallel"

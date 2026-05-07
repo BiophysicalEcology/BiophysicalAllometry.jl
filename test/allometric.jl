@@ -1,4 +1,4 @@
-using BiophysicalAllometry, Unitful, Test
+using BiologicalScaling, Unitful, Test
 
 # ── Basal metabolic rate ───────────────────────────────────────────────────────
 

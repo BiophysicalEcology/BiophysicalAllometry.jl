@@ -131,6 +131,76 @@ const _BRAIN_HUMAN = PowerLaw(
     reference   = "Schmidt-Nielsen 1975 Am. Zool. 15:295–305 (humans)"
 )
 
+# ── Silhouette area ────────────────────────────────────────────────────────────
+
+"""
+    _SIL_NORMAL_DESERT_IGUANA
+
+Desert iguana (*Dipsosaurus dorsalis*) silhouette area normal to the solar beam:
+ASIL = 3.798×10⁻⁴ × Mɡ^0.683 m² (Mɡ in g).
+
+Source: Porter, W. P., & Tracy, C. R. (1983). Biophysical analyses of energetics, time-space
+utilization, and distributional limits. In R. B. Huey, E. R. Pianka, & T. W. Schoener (Eds.),
+*Lizard Ecology: Studies of a Model Organism* (pp. 55–83). Harvard University Press.
+Original data from Porter et al. (1973) *Science* 179:720–723.
+"""
+const _SIL_NORMAL_DESERT_IGUANA = PowerLaw(
+    3.798e-4, 0.683;
+    input_unit  = u"g",
+    output_unit = u"m^2",
+    reference   = "Porter et al. 1973 Science 179:720–723; Porter & Tracy 1983 in Lizard Ecology (Harvard)"
+)
+
+"""
+    _SIL_PARALLEL_DESERT_IGUANA
+
+Desert iguana (*Dipsosaurus dorsalis*) silhouette area parallel to the solar beam:
+ASIL = 6.94×10⁻⁵ × Mɡ^0.743 m² (Mɡ in g).
+
+Source: Porter, W. P., & Tracy, C. R. (1983). Biophysical analyses of energetics, time-space
+utilization, and distributional limits. In R. B. Huey, E. R. Pianka, & T. W. Schoener (Eds.),
+*Lizard Ecology: Studies of a Model Organism* (pp. 55–83). Harvard University Press.
+"""
+const _SIL_PARALLEL_DESERT_IGUANA = PowerLaw(
+    6.94e-5, 0.743;
+    input_unit  = u"g",
+    output_unit = u"m^2",
+    reference   = "Porter et al. 1973 Science 179:720–723; Porter & Tracy 1983 in Lizard Ecology (Harvard)"
+)
+
+"""
+    _SIL_NORMAL_LEOPARD_FROG
+
+Leopard frog (*Rana pipiens*) total surface area allometry:
+ATOT = 1.279×10⁻³ × Mɡ^0.606 m² (Mɡ in g).
+Used as a proxy for the normal-to-sun silhouette for this taxon.
+
+Source: Tracy, C. R. (1976). A model of the dynamic exchanges of water and energy
+between a terrestrial amphibian and its environment. *Ecological Monographs* 46:293–326.
+"""
+const _SIL_NORMAL_LEOPARD_FROG = PowerLaw(
+    1.279e-3, 0.606;
+    input_unit  = u"g",
+    output_unit = u"m^2",
+    reference   = "Tracy 1976 Ecol. Monogr. 46:293–326"
+)
+
+"""
+    _SIL_VENTRAL_LEOPARD_FROG
+
+Leopard frog (*Rana pipiens*) ventral surface area:
+AVEN = 4.25×10⁻⁵ × Mɡ^0.85 m² (Mɡ in g).
+
+Source: Tracy, C. R. (1976). A model of the dynamic exchanges of water and energy
+between a terrestrial amphibian and its environment. *Ecological Monographs* 46:293–326.
+"""
+const _SIL_VENTRAL_LEOPARD_FROG = PowerLaw(
+    4.25e-5, 0.85;
+    input_unit  = u"g",
+    output_unit = u"m^2",
+    reference   = "Tracy 1976 Ecol. Monogr. 46:293–326"
+)
+
 # ── allometric dispatch ────────────────────────────────────────────────────────
 
 allometric(::SurfaceArea,  ::AbstractMammal, mass) = _SA_MAMMAL(mass)
@@ -163,8 +233,21 @@ allometric_inputs(::AbstractMorphology, ::AbstractTaxon) = (:mass,)
 
 # ── Named convenience wrappers ─────────────────────────────────────────────────
 
-surface_area(taxon, mass)  = allometric(SurfaceArea(),  taxon, mass)
-skin_area(taxon, mass)     = allometric(SkinArea(),     taxon, mass)
-plumage_area(taxon, mass)  = allometric(PlumageArea(),  taxon, mass)
-skeleton_mass(taxon, mass) = allometric(SkeletonMass(), taxon, mass)
-brain_mass(taxon, mass)    = allometric(BrainMass(),    taxon, mass)
+allometric(::SilhouetteArea{NormalToSun},   ::DesertIguana, mass) = _SIL_NORMAL_DESERT_IGUANA(mass)
+allometric(::SilhouetteArea{ParallelToSun}, ::DesertIguana, mass) = _SIL_PARALLEL_DESERT_IGUANA(mass)
+allometric(::SilhouetteArea{NormalToSun},   ::LeopardFrog,  mass) = _SIL_NORMAL_LEOPARD_FROG(mass)
+allometric(::SilhouetteArea{ParallelToSun}, ::LeopardFrog,  mass) = _SIL_VENTRAL_LEOPARD_FROG(mass)
+
+power_law(::SilhouetteArea{NormalToSun},   ::DesertIguana) = _SIL_NORMAL_DESERT_IGUANA
+power_law(::SilhouetteArea{ParallelToSun}, ::DesertIguana) = _SIL_PARALLEL_DESERT_IGUANA
+power_law(::SilhouetteArea{NormalToSun},   ::LeopardFrog)  = _SIL_NORMAL_LEOPARD_FROG
+power_law(::SilhouetteArea{ParallelToSun}, ::LeopardFrog)  = _SIL_VENTRAL_LEOPARD_FROG
+
+# ── Named convenience wrappers ─────────────────────────────────────────────────
+
+surface_area(taxon, mass)     = allometric(SurfaceArea(),  taxon, mass)
+skin_area(taxon, mass)        = allometric(SkinArea(),     taxon, mass)
+plumage_area(taxon, mass)     = allometric(PlumageArea(),  taxon, mass)
+skeleton_mass(taxon, mass)    = allometric(SkeletonMass(), taxon, mass)
+brain_mass(taxon, mass)       = allometric(BrainMass(),    taxon, mass)
+silhouette_area(orientation, taxon, mass) = allometric(SilhouetteArea{typeof(orientation)}(), taxon, mass)

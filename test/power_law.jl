@@ -1,4 +1,4 @@
-using BiophysicalAllometry, Unitful, Test
+using BiologicalScaling, Unitful, Test
 
 @testset "PowerLaw callable" begin
     pl = PowerLaw(3.34, 0.75; input_unit=u"kg", output_unit=u"W", reference="test ref")

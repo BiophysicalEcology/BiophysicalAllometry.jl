@@ -1,17 +1,17 @@
-module BiophysicalAllometryMakieExt
+module BiologicalScalingMakieExt
 
 using Makie
 using Unitful
-using BiophysicalAllometry
+using BiologicalScaling
 
-import BiophysicalAllometry:
+import BiologicalScaling:
     allometric_scaling, allometric_scaling!,
     structural_constraints, structural_constraints!,
     plot_allometric_scaling, plot_structural_constraints
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
-function _ylabel(v::AbstractAllometricVariable)
+function _ylabel(v::AbstractScalingVariable)
     v isa BasalMetabolicRate  && return "Basal metabolic rate (W)"
     v isa FieldMetabolicRate  && return "Field metabolic rate (W)"
     v isa SurfaceArea         && return "Surface area (m²)"
@@ -43,7 +43,7 @@ _linestyle(::DynamicSimilarity)   = :dot
 
 function allometric_scaling!(
         ax::Makie.AbstractAxis,
-        variable::AbstractAllometricVariable,
+        variable::AbstractScalingVariable,
         pairs;
         mass_range  = [0.001u"kg", 1000.0u"kg"],
         n_points    = 200,
@@ -89,7 +89,7 @@ end
 # Overload for Figure / GridPosition: create an Axis, then delegate.
 function allometric_scaling(
         gp::Union{Makie.Figure, Makie.GridPosition, Makie.GridSubposition},
-        variable::AbstractAllometricVariable,
+        variable::AbstractScalingVariable,
         pairs;
         axis = NamedTuple(),
         kwargs...)
@@ -188,4 +188,4 @@ function plot_structural_constraints(
     return fig
 end
 
-end # module BiophysicalAllometryMakieExt
+end # module BiologicalScalingMakieExt

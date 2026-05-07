@@ -1,4 +1,4 @@
-using BiophysicalAllometry, Unitful, Test
+using BiologicalScaling, Unitful, Test
 
 @testset "limb_diameter from length" begin
     de = limb_diameter(ElasticSimilarity(),   0.3u"m")

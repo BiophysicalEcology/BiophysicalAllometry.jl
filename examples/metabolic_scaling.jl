@@ -3,10 +3,10 @@
 # Demonstrates basal metabolic rate scaling across taxa and body sizes,
 # and other physiological allometries, from mycoplasma to blue whale.
 #
-# Run from the BiophysicalAllometry.jl root:
+# Run from the BiologicalScaling.jl root:
 #   julia --project examples/metabolic_scaling.jl
 
-using BiophysicalAllometry
+using BiologicalScaling
 using Unitful
 
 # ── BMR across a size range ────────────────────────────────────────────────────

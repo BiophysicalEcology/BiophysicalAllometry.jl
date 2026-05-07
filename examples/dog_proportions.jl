@@ -1,16 +1,16 @@
 # dog_proportions.jl
 #
-# Demonstrates using BiophysicalAllometry to derive body-part proportions
+# Demonstrates using BiologicalScaling to derive body-part proportions
 # for a multi-part organism from total body mass alone, then feeding those
 # values into BiophysicalGeometry to build a CompositeBody.
 #
 # This is the allometry-driven counterpart to BiophysicalGeometry's dog.jl
 # example, which uses hardcoded proportions.
 #
-# Run from the BiophysicalAllometry.jl root:
+# Run from the BiologicalScaling.jl root:
 #   julia --project examples/dog_proportions.jl
 
-using BiophysicalAllometry
+using BiologicalScaling
 using Unitful
 
 # ── Parameters ────────────────────────────────────────────────────────────────

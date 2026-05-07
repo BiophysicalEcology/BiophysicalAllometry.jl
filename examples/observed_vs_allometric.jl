@@ -8,12 +8,12 @@
 #   1. Recipe directly inside a manually-built Figure (full layout control)
 #   2. Convenience wrapper plot_allometric_scaling() for a quick one-liner
 #
-# Run from the BiophysicalAllometry.jl root:
+# Run from the BiologicalScaling.jl root:
 #   julia --project examples/observed_vs_allometric.jl
 #
 # Output: observed_vs_allometric.png
 
-using BiophysicalAllometry
+using BiologicalScaling
 using CairoMakie
 using Unitful
 

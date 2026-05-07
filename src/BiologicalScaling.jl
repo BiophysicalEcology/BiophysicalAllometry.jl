@@ -1,4 +1,4 @@
-module BiophysicalAllometry
+module BiologicalScaling
 
 using Unitful
 
@@ -10,16 +10,17 @@ export AbstractTaxon,
     AbstractLeafPlant,
     EutherianMammal, Marsupial, Primate, Human,
     PasserineBird, NonPasserineBird,
-    Squamate,
-    Anuran,
+    Squamate, DesertIguana,
+    Anuran, LeopardFrog,
     C3Plant, BroadleafPlant, Bambusoideae, Liriodendron, Rosaceae, Lauraceae, Oleaceae
 
 # Variable types
-export AbstractAllometricVariable,
+export AbstractScalingVariable,
     AbstractMetabolicRate, AbstractMorphology, AbstractLocomotion,
     AbstractCardioRespiratory, AbstractLifeHistory, AbstractLeafMorphology,
     BasalMetabolicRate, FieldMetabolicRate, StandardMetabolicRate,
-    SurfaceArea, SkinArea, PlumageArea, SkeletonMass, BrainMass,
+    AbstractSilhouetteOrientation, NormalToSun, ParallelToSun,
+    SurfaceArea, SkinArea, PlumageArea, SkeletonMass, BrainMass, SilhouetteArea,
     StrideFrequency, CostOfTransport,
     HeartRate, LungVolume, TidalVolume,
     Lifespan, GenerationTime,
@@ -33,18 +34,21 @@ export allometric, power_law, montgomery_law, allometric_inputs, trait_name
 
 # Named convenience functions
 export basal_metabolic_rate, standard_metabolic_rate,
-    surface_area, skin_area, plumage_area, skeleton_mass, brain_mass,
+    surface_area, skin_area, plumage_area, skeleton_mass, brain_mass, silhouette_area,
     stride_frequency, cost_of_transport,
     heart_rate, lung_volume, tidal_volume,
     lifespan, generation_time,
     leaf_area, leaf_dry_mass
 
 # Allometric registry
-export AllometricEntry, ALLOMETRIC_REGISTRY
+export ScalingEntry, SCALING_REGISTRY
 
 # Structural constraints
 export AbstractScalingSimilarity, ElasticSimilarity, GeometricSimilarity, DynamicSimilarity
 export limb_diameter, limb_length, limb_aspect_ratio
+
+# Body-part proportions
+export BodyPartProportions, body_part_proportions, HUMAN_BODY_PROPORTIONS
 
 # Makie plotting — recipe functions and convenience wrappers (implementations in ext/)
 export allometric_scaling, allometric_scaling!
@@ -52,7 +56,7 @@ export structural_constraints, structural_constraints!
 export plot_allometric_scaling, plot_structural_constraints
 
 # ── Makie stubs ───────────────────────────────────────────────────────────────
-# Pre-declared so the names live in BiophysicalAllometry's namespace.
+# Pre-declared so the names live in BiologicalScaling's namespace.
 # @recipe in the extension adds methods; the convenience wrappers override the
 # error-throwing bodies below once a Makie backend is loaded.
 
@@ -126,6 +130,7 @@ include("variables/cardiorespiratory.jl")
 include("variables/life_history.jl")
 include("variables/leaf_morphology.jl")
 include("structural_constraints.jl")
-include("allometric_registry.jl")
+include("body_part_proportions.jl")
+include("scaling_registry.jl")
 
 end
